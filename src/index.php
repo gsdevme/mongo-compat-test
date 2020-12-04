@@ -12,8 +12,6 @@ $result = $db->command(['serverStatus' => true]);
 
 VarDumper::dump(sprintf('Mongo Version %s', $result['version']));
 
-
-// Speak to Mongo
 $mongo->listDBs();
 
 $database = 'test';
@@ -43,14 +41,28 @@ $collection->batchInsert(
     ]
 );
 
-assert(iterator_count($collection->find()) == 3, '3 items exist in the collection');
+assert(
+    iterator_count($collection->find()) == 3,
+    '3 items exist in the collection'
+);
 
 $collection->remove([]);
 
-assert(iterator_count($collection->find()) == 0, '0 items exist in the collection');
+assert(
+    iterator_count($collection->find()) == 0,
+    '0 items exist in the collection'
+);
 
-$collection->insert(['ping' => 'pong', 'hello' => 'world']);
+$collection->insert(['ping' => 'pong', 'hello' => 'world', 'weather' => 'snow']);
 
-assert($collection->findOne(['ping' => 'pong'])['hello'] == 'world', 'Hello world');
+assert(
+    $collection->findOne(['ping' => 'pong'])['hello'] == 'world',
+    'Hello world'
+);
+
+assert(
+    !array_key_exists('hello', $collection->findOne(['ping' => 'pong'], ['weather' => 1])),
+    'projection works because hello array key is missing'
+);
 
 VarDumper::dump(sprintf('Yup all worked'));
