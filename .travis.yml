@@ -2,6 +2,12 @@ language: minimal
 
 jobs:
     include:
+        -   name: "mongo 3.0"
+            env: MONGO_VERSION=mongo30
+        -   name: "mongo 3.2"
+            env: MONGO_VERSION=mongo32
+        -   name: "mongo 3.4"
+            env: MONGO_VERSION=mongo34
         -   name: "mongo 3.6"
             env: MONGO_VERSION=mongo36
         -   name: "mongo 4.0"
