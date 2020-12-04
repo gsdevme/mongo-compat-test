@@ -6,6 +6,9 @@ services:
     image: mongo:3.4
     healthcheck:
       test: [ "CMD", "nc", "-z", "-v", "localhost", "27017" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     restart: on-failure
     ports:
       - 27017:27017

@@ -6,9 +6,8 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     depends_on:
-      - mongo
-    links:
-      - mongo
+      mongo:
+        condition: service_healthy
     volumes:
       - './src:/app/src:cached'
       - app/vendor
