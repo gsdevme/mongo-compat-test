@@ -16,5 +16,8 @@ jobs:
 services:
     - docker
 
+before_script:
+    - make build mongo=$MONGO_VERSION
+
 script:
     - make run mongo=$MONGO_VERSION
