@@ -17,6 +17,13 @@ stop:
 		--project-directory $(CURDIR) \
 		down --remove-orphans
 
+logs:
+	docker-compose \
+		-f docker-compose.yml \
+		-f docker-compose.$(mongo).yml \
+		--project-directory $(CURDIR) \
+		logs -f
+
 shell:
 	docker-compose \
 		-f docker-compose.yml \
