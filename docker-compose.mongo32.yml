@@ -5,9 +5,9 @@ services:
     container_name: mongo
     image: mongo:3.2
     healthcheck:
-      test: [ "CMD", "nc", "-z", "-v", "localhost", "27017" ]
-      interval: 10s
-      timeout: 5s
+      test: [ "CMD", "echo", "-n", ">", "/dev/tcp/127.0.0.1/27017" ]
+      interval: 5s
+      timeout: 3s
       retries: 10
     restart: on-failure
     ports:
