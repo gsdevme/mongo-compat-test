@@ -1,10 +1,14 @@
-language: generic
+language: minimal
+
+jobs:
+    include:
+        -   name: "mongo 3.6"
+            env: MONGO_VERSION=mongo36
+        -   name: "mongo 4.0"
+            env: MONGO_VERSION=mongo40
 
 services:
     - docker
 
-before_install:
-    - docker pull mongo:3.6
-
 script:
-    - make run mongo=mongo36
+    - make run mongo=$(MONGO_VERSION)
