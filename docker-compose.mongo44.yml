@@ -1,0 +1,17 @@
+version: "2"
+
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:4.4
+    healthcheck:
+      test: [ "CMD", "echo", "-n", ">", "/dev/tcp/127.0.0.1/27017" ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: on-failure
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password

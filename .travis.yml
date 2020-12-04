@@ -12,6 +12,10 @@ jobs:
             env: MONGO_VERSION=mongo36
         -   name: "mongo 4.0"
             env: MONGO_VERSION=mongo40
+        -   name: "mongo 4.2"
+            env: MONGO_VERSION=mongo42
+        -   name: "mongo 4.4"
+            env: MONGO_VERSION=mongo44
 
 services:
     - docker
