@@ -17,4 +17,4 @@ services:
     - docker
 
 script:
-    - make run mongo=$(MONGO_VERSION)
+    - make run mongo=$MONGO_VERSION
