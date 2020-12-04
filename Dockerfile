@@ -1,4 +1,4 @@
-FROM php:5.5-cli as base
+FROM php:5.5-cli
 
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
