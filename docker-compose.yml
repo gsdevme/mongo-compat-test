@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  php:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      target: base
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    volumes:
+      - './src:/app/src:cached'
+      - app/vendor
+      - './Makefile:/app/Makefile:ro'
+      # for Composer
+      - '~/.ssh:/root/.ssh:ro'
+      - '~/.ssh:/var/www/.ssh:ro'
+      - '~/.composer/auth.json:/root/.composer/auth.json:ro'
+      - '~/.composer/auth.json:/var/www/.composer/auth.json:ro'
+      - '~/.composer/cache:/var/www/.composer/:cached'

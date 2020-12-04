@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:3.2
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "-v", "localhost", "27017" ]
+    restart: on-failure
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password

@@ -1,0 +1,8 @@
+{
+  "name": "gsdev/mongo-compat",
+  "require": {
+    "php": ">=5.5",
+    "ext-mongo": "*",
+    "symfony/var-dumper": "*"
+  }
+}
