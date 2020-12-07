@@ -1,5 +1,9 @@
 language: minimal
 
+cache:
+    directories:
+        - /home/travis/.composer/cache
+
 jobs:
     include:
         -   name: "mongo 3.0"
