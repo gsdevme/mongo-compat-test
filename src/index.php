@@ -4,6 +4,11 @@ require_once realpath(__DIR__).'/../vendor/autoload.php';
 
 use Symfony\Component\VarDumper\VarDumper;
 
+# due to https://stackoverflow.com/questions/47569871/aggregatecursor-issue-with-mongodb-3-6
+# https://derickrethans.nl/64bit-ints-in-mongodb.html
+ini_set('mongo.native_long', false);
+ini_set('mongo.long_as_object', true);
+
 $mongo = new MongoClient('mongodb://root:password@mongo/');
 $mongo->connect();
 
@@ -63,6 +68,65 @@ assert(
 assert(
     !array_key_exists('hello', $collection->findOne(['ping' => 'pong'], ['weather' => 1])),
     'projection works because hello array key is missing'
+);
+
+$collection->remove([]);
+
+$collection->batchInsert(
+    [
+        [
+            'customer' => 'bob',
+            'type' => 'add',
+            'amount' => 10,
+        ],
+        [
+            'customer' => 'bob',
+            'type' => 'add',
+            'amount' => 10,
+        ],
+        [
+            'customer' => 'harry',
+            'type' => 'add',
+            'amount' => 10,
+        ],
+        [
+            'customer' => 'bob',
+            'type' => 'divide',
+            'amount' => 5,
+        ],
+    ]
+);
+
+$result = $collection->aggregateCursor(
+    [
+        ['$group' => ['_id' => '$customer', 'total' => ['$sum' => '$amount']]],
+        ['$sort' => ['total' => -1]],
+    ]
+);
+
+$legacyResult = [
+    'result' => iterator_to_array($result),
+    'ok' => 1,
+];
+
+assert(
+    $legacyResult == [
+        'result' =>
+            [
+
+                [
+                    '_id' => 'bob',
+                    'total' => 25,
+                ],
+
+                [
+                    '_id' => 'harry',
+                    'total' => 10,
+                ],
+            ],
+        'ok' => 1,
+    ],
+    'Mongo aggregateCursor mapped into legacy structure'
 );
 
 VarDumper::dump(sprintf('Yup all worked'));
