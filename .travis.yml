@@ -1,5 +1,12 @@
 language: minimal
 
+notifications:
+  email:
+    recipients:
+      - travis-notification-mongo-compat-test-2425@gsdev.me
+    on_success: never
+    on_failure: always
+
 cache:
     directories:
         - /home/travis/.composer/cache
