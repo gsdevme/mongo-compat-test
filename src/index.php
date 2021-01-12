@@ -6,7 +6,7 @@ use Symfony\Component\VarDumper\VarDumper;
 
 # due to https://stackoverflow.com/questions/47569871/aggregatecursor-issue-with-mongodb-3-6
 # https://derickrethans.nl/64bit-ints-in-mongodb.html
-ini_set('mongo.native_long', false);
+ini_set('mongo.native_long', true);
 ini_set('mongo.long_as_object', false);
 
 $mongo = new MongoClient('mongodb://root:password@mongo/');
