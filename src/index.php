@@ -97,12 +97,16 @@ $collection->batchInsert(
     ]
 );
 
+ini_set('mongo.long_as_object', true);
+
 $result = $collection->aggregateCursor(
     [
         ['$group' => ['_id' => '$customer', 'total' => ['$sum' => '$amount']]],
         ['$sort' => ['total' => -1]],
     ]
 );
+
+ini_set('mongo.long_as_object', false);
 
 $legacyResult = [
     'result' => iterator_to_array($result),
