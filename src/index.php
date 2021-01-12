@@ -106,12 +106,12 @@ $result = $collection->aggregateCursor(
     ]
 );
 
-ini_set('mongo.long_as_object', false);
-
 $legacyResult = [
     'result' => iterator_to_array($result),
     'ok' => 1,
 ];
+
+ini_set('mongo.long_as_object', false);
 
 assert(
     $legacyResult == [
